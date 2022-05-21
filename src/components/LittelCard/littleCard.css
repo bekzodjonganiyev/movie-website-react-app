@@ -1,0 +1,16 @@
+.little-card{
+    width: 80%;
+    padding: 20px;
+    margin: 0 auto 15px ;
+    border-radius: 5px;
+    background-color:indigo ;
+}
+
+.little-card__img{
+    width: 100%;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+}

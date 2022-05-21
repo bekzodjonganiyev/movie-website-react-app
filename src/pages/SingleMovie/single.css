@@ -1,0 +1,29 @@
+.single{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 50px;
+    height: 100vh;
+}
+
+.content{
+    padding: 20px;
+    flex-grow: 1;
+    flex-flow: wrap;
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.content > p {
+    width: 750px;;
+}
+
+.actors, .movies{
+    width: 25%;
+    height: auto;
+    background-color:rgb(6, 6, 65);
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    color: white;
+    box-sizing: border-box ;
+    padding: 10px;
+}

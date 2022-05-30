@@ -123,8 +123,6 @@ const SingleMovie = () => {
 
     }, [id])
 
-    console.log(actors.data);
-
     const style = {
         backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.data.backdrop_path})`,
         backgroundRepeat: "no-repeat",
@@ -166,25 +164,35 @@ const SingleMovie = () => {
 
                                 {
                                     movieTriller.isFatched ?
-                                        movieTriller.data.results ?
-                                            movieTriller.data.results.splice(0,1).map(item => (
-                                                <div key={item.id}  >
-                                                    
-                                                    <iframe
-                                                        width="100%"
-                                                        height="400"
-                                                        src={`https://www.youtube.com/embed/${item.key}`}
-                                                        title={item.title}
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowFullScreen>
-                                                    </iframe>
-                                                </div>
-                                            )) :
-                                            (<>
-                                                <img src={Audio} alt="loading" style={{ position: "absolute", top: "200px", right: "600px" }} />
-                                                <h4>No treller</h4>
-                                            </>
-                                            ) : ""
+                                        (
+                                            <div
+                                                style={{
+                                                    width: "100%",
+                                                    height: "400px",
+                                                    overflowY: 'scroll',
+                                                    overflowX: 'hidden'
+                                                }} >
+                                                {
+                                                    movieTriller.data.results.map(item => (
+                                                        <iframe
+                                                            key={item.id}
+                                                            width="100%"
+                                                            height="400"
+                                                            src={`https://www.youtube.com/embed/${item.key}`}
+                                                            title={item.title}
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                            style={{marginBottom:"20px"}}
+                                                            >
+                                                        </iframe>
+                                                    ))
+                                                }
+                                            </div>
+
+                                        ) :
+                                        (
+                                            <img src={Audio} alt="loading" style={{ position: "absolute", top: "200px", right: "600px" }} />
+                                        )
                                 }
                             </>
                         ) :

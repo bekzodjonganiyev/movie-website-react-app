@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import MovieCard from '../../components/MovieCard/MovieCard';
+import styledComponents from "styled-components"
 
 import Audio from "../../assets/loader.svg"
+import PaginationComponent from '../../components/Pagination/Pagination';
 
 
 function TopRated() {
@@ -11,12 +13,16 @@ function TopRated() {
         isFatched: false,
         data: {},
         error: null,
+        totalPages: 0,
     })
+
+    const [activePage, setActivePage] = useState()
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_MOVIE_API + '/movie/top_rated', {
             params: {
-                api_key: process.env.REACT_APP_MOVIE_API_KEY
+                api_key: process.env.REACT_APP_MOVIE_API_KEY,
+                page:activePage,
             }
         })
             .then((response) => {
@@ -24,20 +30,21 @@ function TopRated() {
                     isFatched: true,
                     data: response.data,
                     error: false,
+                    totalPages: response.data.total_pages > 500 ? 500 : response.data.total_pages
                 })
             })
             .catch((error) => {
                 setData({
                     isFatched: true,
                     data: false,
-                    error: error,
+                    error: true,
+                    totalPages: 0
                 })
             })
-    }, [])
+    }, [activePage])
 
-    console.log(data);
 
-    return <>
+    return <TopRatedDiv>
         <div style={{
             display: "flex",
             justifyContent: "space-around",
@@ -55,8 +62,18 @@ function TopRated() {
             }
         </div>
 
+        <PaginationComponent totalPages={data.totalPages} setActivePage={setActivePage} />
 
-    </>
+    </TopRatedDiv>
 }
 
 export default TopRated
+
+
+
+const TopRatedDiv = styledComponents.div`
+display:flex;
+flex-direction: column;
+align-items: center;
+padding: 50px 0px;
+`
